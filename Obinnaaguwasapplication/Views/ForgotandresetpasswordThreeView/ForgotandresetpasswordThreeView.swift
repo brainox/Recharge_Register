@@ -1,9 +1,8 @@
 import SwiftUI
 
 struct ForgotandresetpasswordThreeView: View {
+    @StateObject var forgotandresetpasswordThreeViewModel = ForgotandresetpasswordThreeViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State private var textinputText: String = ""
-    @State private var textinputoneText: String = ""
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 0) {
@@ -17,6 +16,9 @@ struct ForgotandresetpasswordThreeView: View {
                                 .scaledToFit()
                                 .clipped()
                                 .padding(.vertical, getRelativeHeight(3.0))
+                                .onTapGesture {
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
                             Text(StringConstants.kMsgCreateANewPa)
                                 .font(FontScheme.kManropeSemiBold(size: getRelativeHeight(20.0)))
                                 .fontWeight(.semibold)
@@ -48,73 +50,106 @@ struct ForgotandresetpasswordThreeView: View {
                        alignment: .leading)
                 .padding(.top, getRelativeHeight(21.0))
                 VStack {
-                    HStack {
-                        Spacer()
-                        Image("img_lockfilled_gray_500")
-                            .resizable()
-                            .frame(width: getRelativeWidth(15.0), height: getRelativeHeight(19.0),
-                                   alignment: .center)
-                            .scaledToFit()
-                            .clipped()
-                            .padding(.vertical, getRelativeHeight(17.0))
-                            .padding(.leading, getRelativeWidth(24.0))
-                            .padding(.trailing, getRelativeWidth(14.0))
-                        TextField(StringConstants.kMsgEnterYourNew, text: $textinputText)
-                            .font(FontScheme.kManropeMedium(size: getRelativeHeight(14.0)))
-                            .foregroundColor(ColorConstants.Gray501)
-                            .padding()
-                            .keyboardType(.default)
-                        Image("img_eyeslashfilled")
-                            .resizable()
-                            .frame(width: getRelativeWidth(19.0), height: getRelativeHeight(18.0),
-                                   alignment: .center)
-                            .scaledToFit()
-                            .clipped()
-                            .padding(.vertical, getRelativeHeight(18.0))
-                            .padding(.leading, getRelativeWidth(30.0))
-                            .padding(.trailing, getRelativeWidth(23.0))
-                        Spacer()
+                    Group {
+                        HStack {
+                            Spacer()
+                            Image("img_lockfilled_gray_500")
+                                .resizable()
+                                .frame(width: getRelativeWidth(15.0),
+                                       height: getRelativeHeight(19.0), alignment: .center)
+                                .scaledToFit()
+                                .clipped()
+                                .padding(.vertical, getRelativeHeight(17.0))
+                                .padding(.leading, getRelativeWidth(24.0))
+                                .padding(.trailing, getRelativeWidth(14.0))
+                            TextField(StringConstants.kMsgEnterYourNew,
+                                      text: $forgotandresetpasswordThreeViewModel.textinputText)
+                                .font(FontScheme.kManropeMedium(size: getRelativeHeight(14.0)))
+                                .foregroundColor(ColorConstants.Gray501)
+                                .padding()
+                                .keyboardType(.default)
+                            Image("img_eyeslashfilled")
+                                .resizable()
+                                .frame(width: getRelativeWidth(19.0),
+                                       height: getRelativeHeight(18.0), alignment: .center)
+                                .scaledToFit()
+                                .clipped()
+                                .padding(.vertical, getRelativeHeight(18.0))
+                                .padding(.leading, getRelativeWidth(30.0))
+                                .padding(.trailing, getRelativeWidth(23.0))
+                            Spacer()
+                        }
+                        .onChange(of: forgotandresetpasswordThreeViewModel
+                            .textinputText) { newValue in
+
+                                forgotandresetpasswordThreeViewModel.isValidTextinputText = newValue
+                                    .isValidPassword(isMandatory: true)
+                        }
+                        .frame(width: getRelativeWidth(335.0), height: getRelativeHeight(54.0),
+                               alignment: .center)
+                        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0,
+                                                   bottomRight: 10.0)
+                                .fill(ColorConstants.Gray50))
+                        .padding(.horizontal, getRelativeWidth(20.0))
+                        if !forgotandresetpasswordThreeViewModel.isValidTextinputText {
+                            Text("Please enter valid password.")
+                                .foregroundColor(Color.red)
+                                .font(FontScheme.kManropeMedium(size: getRelativeHeight(14.0)))
+                                .frame(width: getRelativeWidth(335.0),
+                                       height: getRelativeHeight(54.0), alignment: .center)
+                        }
                     }
-                    .frame(width: getRelativeWidth(335.0), height: getRelativeHeight(54.0),
-                           alignment: .center)
-                    .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0,
-                                               bottomRight: 10.0)
-                            .fill(ColorConstants.Gray50))
-                    .padding(.horizontal, getRelativeWidth(20.0))
-                    HStack {
-                        Spacer()
-                        Image("img_lockfilled_gray_500")
-                            .resizable()
-                            .frame(width: getRelativeWidth(15.0), height: getRelativeHeight(19.0),
-                                   alignment: .center)
-                            .scaledToFit()
-                            .clipped()
-                            .padding(.vertical, getRelativeHeight(17.0))
-                            .padding(.leading, getRelativeWidth(24.0))
-                            .padding(.trailing, getRelativeWidth(14.0))
-                        TextField(StringConstants.kMsgEnterThePassw, text: $textinputoneText)
-                            .font(FontScheme.kManropeMedium(size: getRelativeHeight(14.0)))
-                            .foregroundColor(ColorConstants.Gray500)
-                            .padding()
-                            .keyboardType(.default)
-                        Image("img_eyeslashfilled")
-                            .resizable()
-                            .frame(width: getRelativeWidth(19.0), height: getRelativeHeight(18.0),
-                                   alignment: .center)
-                            .scaledToFit()
-                            .clipped()
-                            .padding(.vertical, getRelativeHeight(18.0))
-                            .padding(.leading, getRelativeWidth(30.0))
-                            .padding(.trailing, getRelativeWidth(23.0))
-                        Spacer()
+                    Group {
+                        HStack {
+                            Spacer()
+                            Image("img_lockfilled_gray_500")
+                                .resizable()
+                                .frame(width: getRelativeWidth(15.0),
+                                       height: getRelativeHeight(19.0), alignment: .center)
+                                .scaledToFit()
+                                .clipped()
+                                .padding(.vertical, getRelativeHeight(17.0))
+                                .padding(.leading, getRelativeWidth(24.0))
+                                .padding(.trailing, getRelativeWidth(14.0))
+                            TextField(StringConstants.kMsgEnterThePassw,
+                                      text: $forgotandresetpasswordThreeViewModel.textinputoneText)
+                                .font(FontScheme.kManropeMedium(size: getRelativeHeight(14.0)))
+                                .foregroundColor(ColorConstants.Gray500)
+                                .padding()
+                                .keyboardType(.default)
+                            Image("img_eyeslashfilled")
+                                .resizable()
+                                .frame(width: getRelativeWidth(19.0),
+                                       height: getRelativeHeight(18.0), alignment: .center)
+                                .scaledToFit()
+                                .clipped()
+                                .padding(.vertical, getRelativeHeight(18.0))
+                                .padding(.leading, getRelativeWidth(30.0))
+                                .padding(.trailing, getRelativeWidth(23.0))
+                            Spacer()
+                        }
+                        .onChange(of: forgotandresetpasswordThreeViewModel
+                            .textinputoneText) { newValue in
+
+                                forgotandresetpasswordThreeViewModel
+                                    .isValidTextinputoneText = newValue
+                                    .isValidPassword(isMandatory: true)
+                        }
+                        .frame(width: getRelativeWidth(335.0), height: getRelativeHeight(54.0),
+                               alignment: .center)
+                        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0,
+                                                   bottomRight: 10.0)
+                                .fill(ColorConstants.Gray50))
+                        .padding(.top, getRelativeHeight(25.0))
+                        .padding(.horizontal, getRelativeWidth(20.0))
+                        if !forgotandresetpasswordThreeViewModel.isValidTextinputoneText {
+                            Text("Please enter valid password.")
+                                .foregroundColor(Color.red)
+                                .font(FontScheme.kManropeMedium(size: getRelativeHeight(14.0)))
+                                .frame(width: getRelativeWidth(335.0),
+                                       height: getRelativeHeight(54.0), alignment: .center)
+                        }
                     }
-                    .frame(width: getRelativeWidth(335.0), height: getRelativeHeight(54.0),
-                           alignment: .center)
-                    .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0,
-                                               bottomRight: 10.0)
-                            .fill(ColorConstants.Gray50))
-                    .padding(.top, getRelativeHeight(25.0))
-                    .padding(.horizontal, getRelativeWidth(20.0))
                 }
                 .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(133.0),
                        alignment: .leading)

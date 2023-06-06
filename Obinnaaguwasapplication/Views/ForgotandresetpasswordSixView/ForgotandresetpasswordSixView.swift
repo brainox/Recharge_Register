@@ -1,8 +1,9 @@
 import SwiftUI
 
 struct ForgotandresetpasswordSixView: View {
+    @StateObject var forgotandresetpasswordSixViewModel =
+        ForgotandresetpasswordSixViewModel(_isOpen: .constant(false))
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @Binding var isOpen: Bool
     var body: some View {
         VStack {
             VStack {

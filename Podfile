@@ -11,4 +11,10 @@ post_install do |installer|
 target 'Obinnaaguwasapplication' do
   use_frameworks!
 	pod 'Alamofire'
+
+	pod 'GoogleSignIn'
+
+	pod 'FBSDKCoreKit'
+
+	pod 'FBSDKLoginKit'
 end

@@ -1,8 +1,9 @@
 import SwiftUI
 
 struct ForgotandresetpasswordFifteenView: View {
+    @StateObject var forgotandresetpasswordFifteenViewModel =
+        ForgotandresetpasswordFifteenViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State private var otpviewOTP1: String = ""
     var body: some View {
         VStack {
             VStack {
@@ -15,6 +16,9 @@ struct ForgotandresetpasswordFifteenView: View {
                         .clipped()
                         .padding(.bottom, getRelativeHeight(31.0))
                         .padding(.trailing, getRelativeWidth(333.0))
+                        .onTapGesture {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
                     HStack {
                         HStack {
                             Image("img_icon")
@@ -102,8 +106,9 @@ struct ForgotandresetpasswordFifteenView: View {
                            alignment: .topLeading)
                     .padding(.top, getRelativeHeight(19.0))
                     .padding(.horizontal, getRelativeWidth(23.0))
-                OTPView(text: $otpviewOTP1, width: 329.0, height: 51.0, fieldsCount: 4,
-                        displayType: .roundedCorner,
+                OTPView(text: $forgotandresetpasswordFifteenViewModel.otpviewOTP1, width: 329.0,
+                        height: 51.0,
+                        fieldsCount: 4, displayType: .roundedCorner,
                         defaultBackgroundColor: ColorConstants.Gray50,
                         filledBackgroundColor: ColorConstants.Gray50,
                         defaultBorderColor: ColorConstants.Gray202,

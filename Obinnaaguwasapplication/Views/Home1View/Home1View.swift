@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct Home1View: View {
+    @StateObject var home1ViewModel = Home1ViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         VStack {
@@ -15,6 +16,9 @@ struct Home1View: View {
                                 .scaledToFit()
                                 .clipped()
                                 .padding(.vertical, getRelativeHeight(6.0))
+                                .onTapGesture {
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
                             Spacer()
                             HStack {
                                 Image("img_vector_gray_905")

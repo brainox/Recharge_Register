@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct OnbroadingSevenView: View {
+    @StateObject var onbroadingSevenViewModel = OnbroadingSevenViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         VStack {

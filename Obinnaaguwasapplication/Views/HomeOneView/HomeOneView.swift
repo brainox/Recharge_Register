@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct HomeOneView: View {
+    @StateObject var homeOneViewModel = HomeOneViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         VStack {
